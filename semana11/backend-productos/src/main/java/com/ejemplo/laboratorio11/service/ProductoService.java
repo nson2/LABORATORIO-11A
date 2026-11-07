@@ -19,10 +19,23 @@ public class ProductoService {
         return productoRepository.findAll(pageable);
     }
 
-    public Page<Producto> buscarPorNombre(
+    public Page<Producto> buscarPorNombre(String nombre, Pageable pageable) {
+        return productoRepository.findByNombreContainingIgnoreCase(
+                nombre, pageable);
+    }
+
+    public Page<Producto> buscarAvanzado(
             String nombre,
+            Double precioMin,
+            Double precioMax,
+            Integer stockMin,
             Pageable pageable) {
-        return productoRepository
-                .findByNombreContainingIgnoreCase(nombre, pageable);
+
+        return productoRepository.buscarAvanzado(
+                nombre,
+                precioMin,
+                precioMax,
+                stockMin,
+                pageable);
     }
 }
